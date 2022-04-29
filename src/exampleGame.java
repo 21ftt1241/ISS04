@@ -31,7 +31,7 @@ public class exampleGame {
 		System.out.println("Your HP: " + playerHP);
 		System.out.println("Your Weapon: " + playerWeapon);
 
-		System.out.println("Please enter your name:");
+		System.out.println("Please enter your name: (This is just a test)");
 
 		playerName = myScanner.nextLine();
 
