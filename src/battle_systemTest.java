@@ -4,6 +4,7 @@ public class battle_systemTest {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
+		String separator = ("------------------------------------------------------------------");
 
 //		player choice
 		int pInput;
@@ -18,12 +19,20 @@ public class battle_systemTest {
 		int eBDmg = 5;
 		int eDex = 5;
 
+//		change the order of play
 		int swap = 0;
 
-//		random chance variable for dodge and crit chance
-		int random = (int) (Math.random() * 100) % 10;
+//		treasure
+		int pGold = 20;
+		int gold = 0;
+
 
 		while (true) {
+//			random chance variable for dodge and crit chance
+			int chance1 = (int) (Math.random() * 100) % 10;
+			int chance2 = (int) (Math.random() * 100) % 10;
+			System.out.println(separator);
+			System.out.println("Your HP: " + pHealth + "\n");
 			System.out.println("What would you do?\n(0)Attack\t(1)Dodge\t(2)Item");
 			System.out.print("Enter input: ");
 			pInput = input.nextInt();
@@ -32,55 +41,88 @@ public class battle_systemTest {
 			if (pInput == 0) {
 				if (swap == 0) {
 					if (pDex > eDex) {
-						if (random < pDex) {
-							System.out.println("You hit the enemy!");
+						if (chance1 < pDex) {
+							System.out.println("\nYou hit the enemy!");
 							eHealth = eHealth - pBDmg;
-							System.out.println("You dealt " + pBDmg + " damage to the enemy\n");
+							System.out.println("You dealt " + pBDmg + " damage to the enemy");
+							System.out.println("Enemy health left: " + eHealth + "\n");
 							swap = 1;
+							if (pHealth <= 0) {
+								System.out.println("You are dead!");
+								break;
+							} else {
+								if (eHealth <= 0) {
+									System.out.println("The enemy is dead");
+									break;
+								}
+							}
 						} else {
-							System.out.println("You missed\n");
+							System.out.println("\nYou missed");
 							swap = 1;
 						}
 					} else {
-						if (random < eDex) {
+						if (chance2 < eDex) {
 							System.out.println("The enemy hit you!");
 							pHealth = pHealth - eBDmg;
 							System.out.println("The enemy dealt " + eBDmg + " damage to you\n");
 							swap = 0;
+							if (pHealth <= 0) {
+								System.out.println("You are dead!");
+								break;
+							} else {
+								if (eHealth <= 0) {
+									System.out.println("The enemy is dead");
+									break;
+								}
+							}
 						} else {
-							System.out.println("The enemy missed\n");
+							System.out.println("\nThe enemy missed");
 							swap = 0;
 						}
 					}
 				}
 
 				if (swap == 1) {
-					if (random < eDex) {
+					if (chance2 < eDex) {
 						System.out.println("The enemy hit you!");
 						pHealth = pHealth - eBDmg;
 						System.out.println("The enemy dealt " + eBDmg + " damage to you\n");
 						swap = 0;
-					}else {
-						System.out.println("The enemy missed\n");
+						if (pHealth <= 0) {
+							System.out.println("You are dead!");
+							break;
+						} else {
+							if (eHealth <= 0) {
+								System.out.println("The enemy is dead");
+								break;
+							}
+						}
+					} else {
+						System.out.println("\nThe enemy missed");
 						swap = 0;
 					}
 				} else {
-					if (random < pDex) {
-					System.out.println("You hit the enemy!");
-					eHealth = eHealth - pBDmg;
-					System.out.println("You dealt " + pBDmg + " damage to the enemy\n");
-					swap = 1;
-					}else {
-						System.out.println("You missed\n");
+					if (chance1 < pDex) {
+						System.out.println("You hit the enemy!");
+						eHealth = eHealth - pBDmg;
+						System.out.println("You dealt " + pBDmg + " damage to the enemy\n");
+						System.out.println("Enemy health left: " + eHealth + "\n");
+						swap = 1;
+						if (pHealth <= 0) {
+							System.out.println("You are dead!");
+							break;
+						} else {
+							if (eHealth <= 0) {
+								System.out.println("The enemy is dead");
+								break;
+							}
+						}
+					} else {
+						System.out.println("\nYou missed");
 						swap = 1;
 					}
 				}
 			}
-
-//			Dodge system
-
 		}
-
 	}
-
 }
